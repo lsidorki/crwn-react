@@ -3,7 +3,6 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { RegExpRoute } from 'workbox-routing';
 const provider = new GoogleAuthProvider();
 
 const config = {
