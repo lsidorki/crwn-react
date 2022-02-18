@@ -3,7 +3,6 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-const provider = new GoogleAuthProvider();
 
 const config = {
     apiKey: "AIzaSyA6BtFLoHtBzKlQlb4Tl46C1NMmjwW2cU8",
@@ -12,7 +11,7 @@ const config = {
     storageBucket: "crwn-db-1211f.appspot.com",
     messagingSenderId: "945231712567",
     appId: "1:945231712567:web:3b34bd5c92ccdeadcbcab2"
-  };
+};
 
 // Initialize Firebase
 firebase.initializeApp(config)
@@ -20,9 +19,10 @@ firebase.initializeApp(config)
 export const auth = getAuth();
 export const firestore = firebase.firestore();
 
-provider.setCustomParameters({ prompt: 'select_account' });
+export const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 
-export const signInWithGoogle = () => signInWithPopup(auth, provider);
+export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
 
 export const createUserProfile = async (userAuth, additionalData) => {
     if(!userAuth) return;
@@ -73,4 +73,13 @@ export const convertCollectionsSnapshotToMap = (collections) => {
         accumulator[collection.title.toLowerCase()] = collection;
         return accumulator;
     }, {});
+}
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = auth.onAuthStateChanged(userAuth => {
+            unsubscribe();
+            resolve(userAuth);
+        }, reject)
+    })
 }
