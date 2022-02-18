@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { auth, googleProvider, createUserProfile, getCurrentUser, addCollectionAndDocument } from "../../firebase/firebase.utils";
+import { auth, googleProvider, createUserProfile, getCurrentUser } from "../../firebase/firebase.utils";
 import { signInFailure, signInSuccess, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess } from "./user.actions";
 import UserActionTypes from "./user.types";
 
